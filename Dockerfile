@@ -7,10 +7,13 @@ RUN apk add --no-cache --virtual build-deprendencies \
     py3-setuptools\
     py3-pip \
     geos-dev \
-    cython
-
-RUN apk add python3-dev
-RUN pip install numpy
+    cython \
+    python3-dev \
+    pkgconfig \
+    hdf5-dev
+RUN pip install \
+    numpy \
+    pkgconfig
 
 RUN git clone --depth 1 https://github.com/ucb-art/BAG_framework.git /bag
 
