@@ -1,6 +1,9 @@
 FROM alpine:3.12.0 as builder
 
-RUN apk add --no-cache --virtual build-deprendencies \
+RUN apk add --no-cache --virtual build-dependencies \
+    --repository http://dl-cdn.alpinelinux.org/alpine/edge/main \
+    --repository http://dl-cdn.alpinelinux.org/alpine/edge/community \
+    --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
     git \
     build-base \
     python3 \
@@ -10,7 +13,8 @@ RUN apk add --no-cache --virtual build-deprendencies \
     cython \
     python3-dev \
     pkgconfig \
-    hdf5-dev
+    hdf5-dev \
+    libspatialite-dev
 RUN pip install \
     numpy \
     pkgconfig
