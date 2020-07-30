@@ -14,6 +14,7 @@ RUN apk add --no-cache --virtual build-dependencies \
     python3-dev \
     pkgconfig \
     hdf5-dev
+
 RUN pip install \
     numpy \
     pkgconfig
@@ -27,6 +28,9 @@ RUN python3 setup.py install
 FROM alpine:3.12.0
 
 RUN apk add --no-cache --virtual runtime-dependencies \
+    --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
+    --repository http://dl-cdn.alpinelinux.org/alpine/edge/community \
+    --repository http://dl-cdn.alpinelinux.org/alpine/edge/main \
     python3
 
 COPY --from=builder /usr/lib/python3.8/site-packages/ /usr/lib/python3.8/site-packages/
