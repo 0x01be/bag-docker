@@ -13,11 +13,21 @@ RUN apk add --no-cache --virtual build-dependencies \
     cython \
     python3-dev \
     pkgconfig \
-    hdf5-dev
+    hdf5-dev \
+    cmake \
+    freetype-dev
 
 RUN pip install \
     numpy \
     pkgconfig
+
+RUN git clone --depth 1 https://github.com/libspatialindex/libspatialindex /libspatialindex
+
+RUN mkdir -p /libspatialindex/build
+WORKDIR /libspatialindex/build
+
+RUN cmake ..
+RUN make install
 
 RUN git clone --depth 1 https://github.com/ucb-art/BAG_framework.git /bag
 
