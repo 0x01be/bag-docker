@@ -15,11 +15,22 @@ RUN apk add --no-cache --virtual build-dependencies \
     pkgconfig \
     hdf5-dev \
     cmake \
-    freetype-dev
+    freetype-dev \
+    libressl-dev \
+    linux-headers
+
+RUN git clone --depth 1 https://github.com/scikit-build/cmake-python-distributions /skbuild
+
+RUN mkdir -p /skbuild/build
+WORKDIR /skbuild/build
+
+RUN cmake ..
+RUN make install
 
 RUN pip install \
     numpy \
-    pkgconfig
+    pkgconfig \
+    freetype-py
 
 RUN git clone --depth 1 https://github.com/libspatialindex/libspatialindex /libspatialindex
 
