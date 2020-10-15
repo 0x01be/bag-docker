@@ -1,13 +1,11 @@
-FROM alpine:3.12.0 as builder
+FROM alpine as build
 
 RUN apk add --no-cache --virtual build-dependencies \
-    --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
-    --repository http://dl-cdn.alpinelinux.org/alpine/edge/community \
-    --repository http://dl-cdn.alpinelinux.org/alpine/edge/main \
     git \
     build-base \
     python3 \
-    py3-setuptools\
+    py3-setuptools \
+    py3-wheel \
     py3-pip \
     geos-dev \
     cython \
@@ -28,6 +26,7 @@ RUN cmake ..
 RUN make install
 
 RUN pip install \
+    scikit-build \
     numpy \
     pkgconfig \
     freetype-py
