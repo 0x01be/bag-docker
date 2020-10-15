@@ -1,6 +1,6 @@
 FROM alpine as build
 
-RUN apk add --no-cache --virtual build-dependencies \
+RUN apk add --no-cache --virtual bag-build-dependencies \
     git \
     build-base \
     python3 \
@@ -43,15 +43,5 @@ RUN git clone --depth 1 https://github.com/ucb-art/BAG_framework.git /bag
 
 WORKDIR /bag
 
-RUN python3 setup.py install
-
-FROM alpine:3.12.0
-
-RUN apk add --no-cache --virtual runtime-dependencies \
-    --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
-    --repository http://dl-cdn.alpinelinux.org/alpine/edge/community \
-    --repository http://dl-cdn.alpinelinux.org/alpine/edge/main \
-    python3
-
-COPY --from=builder /usr/lib/python3.8/site-packages/ /usr/lib/python3.8/site-packages/
+RUN python3 setup.py install --prefix=/opt/bag
 
