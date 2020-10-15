@@ -21,14 +21,17 @@ RUN apk add --no-cache --virtual bag-build-dependencies \
 RUN apk add --no-cache --virtual bag-runtime-dependencies \
     --repository http://dl-cdn.alpinelinux.org/alpine/edge/community \
     --repository http://dl-cdn.alpinelinux.org/alpine/edge/main \
-    py3-numpy-dev
+    py3-numpy-dev \
+    py3-scikit-learn \
+    py3-matplotlib
 
 COPY --from=libspatialindex /opt/libspatialindex/ /opt/libspatialindex/
+
+RUN pip install scikit-build
 
 ENV LD_LIBRARY_PATH /usr/lib:/opt/libspatialindex/lib/
 ENV C_INCLUDE_PATH /usr/include/:/opt/libspatialindex/include/:/usr/lib/python3.8/site-packages/numpy/core/include/
 
-RUN pip install scikit-build
 RUN pip install --prefix=/opt/bag freetype-py
 
 ENV PYTHONPATH /usr/lib/python3.8/site-packages/:/opt/bag/lib/python3.8/site-packages/
