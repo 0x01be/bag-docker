@@ -24,7 +24,7 @@ RUN apk add --no-cache --virtual bag-runtime-dependencies \
 COPY --from=libspatialindex /opt/libspatialindex/ /opt/libspatialindex/
 
 ENV LD_LIBRARY_PATH /usr/lib:/opt/libspatialindex/lib/
-ENV C_INCLUDE_PATH /usr/include/:/opt/libspatialindex/include/
+ENV C_INCLUDE_PATH /usr/include/:/opt/libspatialindex/include/:/usr/lib/python3.8/site-packages/numpy/core/include/
 
 RUN pip install --no-deps scikit-build --prefix=/opt/bag
 
