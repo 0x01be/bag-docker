@@ -15,7 +15,8 @@ RUN apk add --no-cache --virtual bag-build-dependencies \
     pkgconfig \
     hdf5-dev \
     freetype-dev \
-    libressl-dev
+    libressl-dev \
+    linux-headers
 
 RUN apk add --no-cache --virtual bag-runtime-dependencies \
     --repository http://dl-cdn.alpinelinux.org/alpine/edge/community \
