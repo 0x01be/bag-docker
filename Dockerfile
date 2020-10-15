@@ -23,8 +23,16 @@ RUN git clone --depth 1 https://github.com/scikit-build/cmake-python-distributio
 RUN mkdir -p /skbuild/build
 WORKDIR /skbuild/build
 
-RUN cmake ..
+RUN cmake \
+    -DCMAKE_INSTALL_PREFIX=/opt/skbuild \
+    ..
+RUN make
 RUN make install
+
+ENV LD_LIBRARY_PATH /usr/lib:/opt/skbuild/lib/
+ENV C_INCLUDE_PATH /usr/include/:/opt/skbuild/include/
+ENV PYTHONPATH /usr/lib/python3.8/site-packages/:/opt/skbuild/lib/python3.8/site-packages/
+ENV PATH ${PATH}:/opt/skbuild/bin/
 
 RUN pip install --prefix=/opt/bag \
     scikit-build \
