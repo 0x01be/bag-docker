@@ -28,11 +28,10 @@ COPY --from=libspatialindex /opt/libspatialindex/ /opt/libspatialindex/
 ENV LD_LIBRARY_PATH /usr/lib:/opt/libspatialindex/lib/
 ENV C_INCLUDE_PATH /usr/include/:/opt/libspatialindex/include/:/usr/lib/python3.8/site-packages/numpy/core/include/
 
-RUN pip install --prefix=/opt/bag scikit-build
+RUN pip install scikit-build
+RUN pip install --prefix=/opt/bag freetype-py
 
 ENV PYTHONPATH /usr/lib/python3.8/site-packages/:/opt/bag/lib/python3.8/site-packages/
-
-RUN pip install --prefix=/opt/bag freetype-py
 
 ENV BAG_REVISION master
 RUN git clone --depth 1 --branch ${BAG_REVISION} https://github.com/ucb-art/BAG_framework.git /bag
