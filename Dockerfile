@@ -9,12 +9,17 @@ RUN apk add --no-cache --virtual bag-build-dependencies \
     py3-setuptools \
     py3-wheel \
     py3-pip \
-    py3-numpy-dev \
     geos-dev \
     cython \
     pkgconfig \
     hdf5-dev \
     freetype-dev
+
+RUN apk add --no-cache --virtual bag-runtime-dependencies \
+    --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
+    --repository http://dl-cdn.alpinelinux.org/alpine/edge/community \
+    --repository http://dl-cdn.alpinelinux.org/alpine/edge/main \
+    py3-numpy-dev
 
 COPY --from=libspatialindex /opt/libspatialindex/ /opt/libspatialindex/
 
